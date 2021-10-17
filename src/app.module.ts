@@ -3,29 +3,26 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ApiController } from './api/api.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { favs } from './favorites/favs.entity';
 import { Connection } from 'typeorm';
-import { favService } from './favorites/favs.service';
-import { favModule } from './favorites/favs.module';
+import { UsersModule } from './users/users.module';
+import { Users } from './users/users.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'defaultea9403b.cb8jptmfjmww.us-east-1.rds.amazonaws.com',
+      host: 'ec2-35-169-176-6.compute-1.amazonaws.com',
       port: 5432,
       username: 'dev',
       password: 'Tadashi123',
       database: 'anidb',
-      entities: [favs],
+      entities: [Users],
       synchronize: true
     }),
-    favModule
+    UsersModule
   ],
   controllers: [AppController, ApiController],
   providers: [AppService],
 })
-export class AppModule {
-  constructor(private connection: Connection){}
-}
+export class AppModule {}
 
